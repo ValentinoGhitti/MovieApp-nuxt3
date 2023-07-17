@@ -3,6 +3,6 @@ import { Movie } from "./Movie";
 export type APIResponse = {
   page: number;
   results: Movie[];
-  totalPages: number;
-  totalResults: number;
+  total_pages: number;
+  total_results: number;
 }

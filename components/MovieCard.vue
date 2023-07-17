@@ -1,9 +1,9 @@
 <template>
   <div class="h-128 w-64 border flex flex-col text-center">
-    <div class="mb-5 bg-green-600 inline-block">
+    <NuxtLink :to="`/movies/${movie?.id}`" class="mb-5 bg-green-600 inline-block">
       <img :src="imgURL" class="transform hover:translate-x-6 
       :hover:translate-y-6 delay-50 duration-100 inline-block" alt="poster">
-    </div>
+    </NuxtLink>
     <div class="text-lg">
       {{movie?.title}}
     </div>

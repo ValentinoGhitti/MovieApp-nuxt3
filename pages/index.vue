@@ -19,6 +19,11 @@
         <MovieCard :movie="movie"></MovieCard>
       </div>
     </div>
+    <div v-if="data?.results.length" class="flex justify-center">
+      <button v-if="!disabledPrevious" @click="page--" class="px-4 py-2 text-m border rounded-lg">Previus</button>
+      <div class="px-4 py-2 text-m border rounded-lg">{{ page }}</div>
+      <button v-if="!disabledNext" @click="page++" class="px-4 py-2 text-m border rounded-lg">Next</button>
+    </div>
   </div>
 </template>
 
@@ -26,9 +31,21 @@
   import { APIResponse } from '../types/APIResponse';
 
   const searchTerm = ref('');
+  const page = ref(1);
+
+  const disabledPrevious = computed(() => {
+    return page.value === 1;
+  })
+
+  const disabledNext = computed(() => {
+    return page.value + 1 === data.value?.total_pages;
+  })
+
+
+  const debouncedSearchTerm = refDebounced(searchTerm, 700);
 
   const url = computed(() => {
-    return `api/movies/search?query=${searchTerm.value}`
+    return `api/movies/search?query=${debouncedSearchTerm.value}&page=${page.value}`
   })
 
   const { data } = await useFetch<APIResponse>(url);
