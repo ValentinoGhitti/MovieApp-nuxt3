@@ -8,5 +8,5 @@ export type Movie = {
   releaseDate: string;
   runtime: number | null;
   overview: string;
-  posterPath: string;
+  poster_path: string;
 }
