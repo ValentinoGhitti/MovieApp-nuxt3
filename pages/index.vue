@@ -1,15 +1,16 @@
 <template>
-  <div class="flex flex-col py-10">
+  <div class="container-fluid flex flex-col py-10">
     <div>
       <h2 class="text-2xl font-bold text-center">Nuxt Movies App</h2>
     </div>
-    <div class="flex justify-center items-center h-32">
-      <input 
-        class="px-2 py-1 border border-gray-800 rounded-md min-w-64"
+
+    <div class="search-container">
+      <input
         type="text"
-        v-model="searchTerm"
         placeholder="Busca tu película"
-      >
+        v-model="searchTerm"
+      />
+      <button id="search-btn">Search</button>
     </div>
     <div 
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 
@@ -32,6 +33,7 @@
 
   const searchTerm = ref('');
   const page = ref(1);
+  
 
   const disabledPrevious = computed(() => {
     return page.value === 1;
@@ -40,7 +42,6 @@
   const disabledNext = computed(() => {
     return page.value + 1 === data.value?.total_pages;
   })
-
 
   const debouncedSearchTerm = refDebounced(searchTerm, 700);
 
@@ -52,3 +53,7 @@
 
 
 </script>
+
+<style scoped>
+
+</style>

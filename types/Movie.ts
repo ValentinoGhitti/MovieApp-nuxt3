@@ -5,8 +5,9 @@ export type Movie = {
     id: number;
     name: string;
   }[];
-  releaseDate: string;
+  release_date: string;
   runtime: number | null;
   overview: string;
   poster_path: string;
+  vote_average: string | number;
 }

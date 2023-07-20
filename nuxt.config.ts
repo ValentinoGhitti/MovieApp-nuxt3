@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     'nuxt-windicss',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
   ],
   runtimeConfig: {
     apiKey: '',
@@ -10,5 +10,8 @@ export default defineNuxtConfig({
     public: {
       imgBaseUrl: ''
     }
-  }
+  },
+  css: [
+    'bootstrap/dist/css/bootstrap.css',
+  ],
 })
