@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div id="result">
       <div class="info">
         <img :src="imgUrl" class="poster">

@@ -9,7 +9,7 @@
         placeholder="Busca tu película"
         v-model="searchTerm"
       />
-      <button id="search-btn">Search</button>
+      <button @click="searchMovies">Search</button>
     </div>
 
     <!-- Cargador -->
@@ -18,40 +18,34 @@
     </div>
 
     <!-- Películas -->
-    <div
-      v-else
-      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 
-      xl:grid-cols-5 self-center gap-x-10 gap-6-10 mb-10"
-    >
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 self-center gap-x-10 gap-6-10 mb-10">
       <div v-for="movie in data?.results" :key="movie.id">
         <MovieCard :movie="movie"></MovieCard>
       </div>
     </div>
 
     <div v-if="data?.results.length" class="flex justify-center">
-      <button v-if="!disabledPrevious" @click="prevPage" class="px-4 py-2 text-m border rounded-lg">Previus</button>
+      <button v-if="!disabledPrevious" @click="goToFirstPage" class="px-4 py-2 text-m border rounded-lg">First</button>
+      <button v-if="!disabledPrevious" @click="prevPage" class="px-4 py-2 text-m border rounded-lg">Previous</button>
       <div class="px-4 py-2 text-m border rounded-lg">{{ page }}</div>
       <button v-if="!disabledNext" @click="nextPage" class="px-4 py-2 text-m border rounded-lg">Next</button>
+      <button v-if="!disabledNext" @click="goToLastPage" class="px-4 py-2 text-m border rounded-lg">Last</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { APIResponse } from '../types/APIResponse';
+
+interface MovieData extends APIResponse {
+  results: Array<any>;
+}
 
 const searchTerm = ref('');
 const page = ref(1);
-const data = ref(null);
+const data = ref<MovieData | null>(null);
 const loading = ref(true);
-
-const disabledPrevious = computed(() => {
-  return page.value === 1;
-});
-
-const disabledNext = computed(() => {
-  return page.value + 1 === data.value?.total_pages;
-});
 
 const debouncedSearchTerm = refDebounced(searchTerm, 700);
 
@@ -65,20 +59,35 @@ const fetchData = async () => {
 };
 
 const prevPage = () => {
-  if (!disabledPrevious.value) {
+  if (page.value > 1) {
     page.value--;
+    fetchData();
   }
 };
 
 const nextPage = () => {
-  if (!disabledNext.value) {
+  if (data.value && page.value < data.value.total_pages) {
     page.value++;
+    fetchData();
   }
 };
 
-watch(searchTerm, fetchData);
-watch(page, fetchData);
+const goToFirstPage = () => {
+  page.value = 1;
+  fetchData();
+};
+
+const goToLastPage = () => {
+  if (data.value) {
+    page.value = data.value.total_pages;
+    fetchData();
+  }
+};
+
+const searchMovies = () => {
+  page.value = 1; // Reset the page to 1 when initiating a new search
+  fetchData();
+};
 
 onMounted(fetchData);
-
 </script>
