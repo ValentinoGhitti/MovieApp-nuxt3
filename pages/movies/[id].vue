@@ -1,5 +1,7 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
+    <NuxtLink class="px-4 py-2 border rounded-lg" to="/">Home</NuxtLink>
+
     <div id="result">
       <div class="info">
         <img :src="imgUrl" class="poster">
@@ -13,8 +15,8 @@
                 <span>{{ getReleaseYear(data?.release_date) }}</span>
                 <span>{{ data?.runtime }}min</span>
             </div>
-            <div class="genre" v-for="genre in data?.genres">
-                <div>{{ genre.name }}</div>
+            <div class="genre" >
+                <div v-for="genre in data?.genres">{{ genre.name }}</div>
             </div>
         </div>
       </div>
@@ -57,7 +59,6 @@
 }
 body {
   height: 100vh;
-  background: linear-gradient(#000000 50%, #ffb92a 50%);
 }
 .container {
   font-size: 16px;

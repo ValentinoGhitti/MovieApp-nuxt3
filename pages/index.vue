@@ -1,16 +1,25 @@
 <template>
+    <nav class="navbar bg-body-tertiary p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        <div class="d-flex">
+          <input 
+            class="form-control me-2" 
+            type="text" 
+            placeholder="Busca tu película"
+            v-model="searchTerm"
+          >
+          <button class="btn btn-outline-success" @click="searchMovies">Search</button>
+        </div>
+      </div>
+    </nav>
+
   <div class="flex flex-col py-10">
     <div>
-      <h2 class="text-2xl font-bold text-center">Nuxt Movies App</h2>
+      <Ticket></Ticket>
+
     </div>
-    <div class="search-container">
-      <input
-        type="text"
-        placeholder="Busca tu película"
-        v-model="searchTerm"
-      />
-      <button @click="searchMovies">Search</button>
-    </div>
+
 
     <!-- Cargador -->
     <div v-if="loading" class="text-center">
@@ -18,9 +27,12 @@
     </div>
 
     <!-- Películas -->
-    <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 self-center gap-x-10 gap-6-10 mb-10">
-      <div v-for="movie in data?.results" :key="movie.id">
-        <MovieCard :movie="movie"></MovieCard>
+    <div v-else id="new-releases" class="category">
+      <h2 id="new-release-title" class="category-header"></h2>
+      <div id="new-release-content"  class="content">
+        <div class="" v-for="movie in data?.results" :key="movie.id">
+          <MovieCard :movie="movie"></MovieCard>
+        </div>
       </div>
     </div>
 
@@ -91,3 +103,73 @@ const searchMovies = () => {
 
 onMounted(fetchData);
 </script>
+
+<style lang="scss">
+
+html, body {
+
+background: #292929;
+
+}
+
+.category {
+display: flex;
+align-items: center;
+}
+
+
+h5 {
+margin-left: 13px;
+margin-top: 3px;
+width: 13em;
+overflow: hidden;
+font-size: .9em;
+letter-spacing: .05em;
+font-family: lato;
+font-weight: 200;
+smoothing: antialiased;
+}
+
+
+
+.content {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+transition: 300ms all ease-in-out; /*HZ??*/
+}
+
+
+.movie {
+display: block;
+height: 380px;
+weight: 200px;
+margin-right: 10px;  
+flex-direction: column;
+align-items: center;
+
+}
+
+.movie-img { 
+border-radius: 7px;
+margin: 12px 12px 12px 12px;
+filter: contrast(.9) saturate(30%);
+transition: .3s transform cubic-bezier(.16,.88,.3,1.8)
+}
+
+.movie-img:hover { 
+filter: contrast(1.1) saturate(100%);
+transform: scale(1.08);
+box-shadow: 0 7px 33px #000;
+cursor: pointer;
+    }
+
+
+
+.movie-title {   
+color: #B0BEC5;
+font-family: Raleway;
+
+}
+
+</style>

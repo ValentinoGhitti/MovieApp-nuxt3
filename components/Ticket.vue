@@ -1,0 +1,137 @@
+<template>
+
+<div class="wrapper">
+		<div class="inverted-corner">
+			<div class="content">
+				<a class="admitOne">asdasd</a>
+				<div class="cinima">MOVIE APP</div>
+				<div class="number left">260611</div>
+				<div class="number right">260611</div>
+				<div class="lyon">Nuxt3 TS</div>
+			</div>
+			<div class="top" />
+			<div class="bottom" />
+		</div>
+</div>
+</template>
+
+<style scoped>
+body {
+	font-family: "Hahmlet", serif;
+	/* 	font-family: 'Spectral', serif; */
+}
+
+.wrapper {
+	width: 405px;
+	margin: auto;
+	position: relative;
+	top: 150px;
+}
+
+.admitOne {
+	position: absolute;
+	border-bottom: solid;
+	font-size: 40px;
+	text-align: center;
+	width: 71%;
+	left: 61px;
+}
+
+.cinima {
+	position: absolute;
+	font-size: 50px;
+	top: 53px;
+	text-align: center;
+	left: 91px;
+}
+
+.lyon {
+	position: absolute;
+	border-top: solid;
+	font-size: 24px;
+	text-align: center;
+	width: 71%;
+	top: 120px;
+	left: 61px;
+	padding-top: 2px;
+}
+
+/* Numbers */
+.number {
+	position: absolute;
+	text-align: center;
+	border-bottom: solid;
+	font-size: 35px;
+	width: 35%;
+	top: 58px;
+}
+
+.left {
+	left: -45px;
+	transform: rotate(270deg);
+}
+
+.right {
+	right: -45px;
+	transform: rotate(90deg);
+}
+
+/* Corners */
+
+.inverted-corner {
+	box-sizing: border-box;
+	position: relative;
+	background-color: rgb(205, 34, 35);
+	width: 425px;
+	height: 200px;
+	border: solid 15px;
+	border-left: dotted 3px;
+	border-right: dotted 3px;
+	border-color: #292929;
+	transform: translateZ(0px);
+}
+
+.inverted-corner:before {
+	background-image: url("https://assets.codepen.io/4091246/redpaper.png");
+	content: "";
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	opacity: 40%;
+}
+
+.top:before,
+.top:after,
+.bottom:before,
+.bottom:after {
+	content: "";
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background-color: #292929;
+	border: solid 15px #292929;
+	border-radius: 35px;
+}
+
+.top:before {
+	top: -25px;
+	left: -15px;
+}
+
+.top:after {
+	top: -20px;
+	right: -15px;
+}
+
+.bottom:before {
+	bottom: -20px;
+	left: -15px;
+}
+
+.bottom:after {
+	bottom: -20px;
+	right: -15px;
+}
+</style>
