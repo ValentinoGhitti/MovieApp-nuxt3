@@ -3,11 +3,11 @@
 <div class="wrapper">
 		<div class="inverted-corner">
 			<div class="content">
-				<a class="admitOne">asdasd</a>
-				<div class="cinima">MOVIE APP</div>
+				<a href="https://github.com/ValentinoGhitti" class="github text-dark">/ValentinoGhitti <i class="bi bi-github"></i></a>
+				<div class="title">MOVIE APP</div>
 				<div class="number left">260611</div>
 				<div class="number right">260611</div>
-				<div class="lyon">Nuxt3 TS</div>
+				<div class="subtitle">Nuxt3 TS</div>
 			</div>
 			<div class="top" />
 			<div class="bottom" />
@@ -18,34 +18,37 @@
 <style scoped>
 body {
 	font-family: "Hahmlet", serif;
-	/* 	font-family: 'Spectral', serif; */
+	font-family: 'Spectral', serif; 
 }
 
 .wrapper {
-	width: 405px;
+	width: 450px;
 	margin: auto;
 	position: relative;
-	top: 150px;
+	bottom: 20px;
 }
 
-.admitOne {
+.github {
 	position: absolute;
 	border-bottom: solid;
-	font-size: 40px;
+	font-size: 24px;
 	text-align: center;
 	width: 71%;
 	left: 61px;
+	font-family: 'Spectral', serif; 
+
 }
 
-.cinima {
+.title {
 	position: absolute;
-	font-size: 50px;
-	top: 53px;
+	font-size: 45px;
+	top: 43px;
+	font-family: "Hahmlet", serif;
 	text-align: center;
-	left: 91px;
+	left: 70px;
 }
 
-.lyon {
+.subtitle {
 	position: absolute;
 	border-top: solid;
 	font-size: 24px;
@@ -53,6 +56,7 @@ body {
 	width: 71%;
 	top: 120px;
 	left: 61px;
+	font-family: 'Spectral', serif; 
 	padding-top: 2px;
 }
 
@@ -64,6 +68,7 @@ body {
 	font-size: 35px;
 	width: 35%;
 	top: 58px;
+	font-family: 'Spectral', serif; 
 }
 
 .left {

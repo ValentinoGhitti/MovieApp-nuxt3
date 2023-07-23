@@ -14,16 +14,15 @@
       </div>
     </nav>
 
-  <div class="flex flex-col py-10">
+  <div class="flex flex-col py-10  bg-warning">
     <div>
       <Ticket></Ticket>
 
     </div>
 
-
     <!-- Cargador -->
-    <div v-if="loading" class="text-center">
-      <p>Cargando...</p>
+    <div v-if="loading" class="text-center bg-warning">
+      <Loader />
     </div>
 
     <!-- Películas -->
@@ -36,13 +35,24 @@
       </div>
     </div>
 
-    <div v-if="data?.results.length" class="flex justify-center">
-      <button v-if="!disabledPrevious" @click="goToFirstPage" class="px-4 py-2 text-m border rounded-lg">First</button>
-      <button v-if="!disabledPrevious" @click="prevPage" class="px-4 py-2 text-m border rounded-lg">Previous</button>
-      <div class="px-4 py-2 text-m border rounded-lg">{{ page }}</div>
-      <button v-if="!disabledNext" @click="nextPage" class="px-4 py-2 text-m border rounded-lg">Next</button>
-      <button v-if="!disabledNext" @click="goToLastPage" class="px-4 py-2 text-m border rounded-lg">Last</button>
-    </div>
+    <nav aria-label="Page navigation example" v-if="data?.results.length">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <button class="page-link" v-if="!disabledPrevious" @click="goToFirstPage"><i class="bi bi-chevron-double-left"></i></button>
+        </li>
+        <li class="page-item">
+          <button class="page-link" v-if="!disabledPrevious" @click="prevPage"><i class="bi bi-chevron-left"></i></button>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
+        <li class="page-item">
+          <button class="page-link" v-if="!disabledNext" @click="nextPage"><i class="bi bi-chevron-right"></i></button>
+        </li>
+        <li class="page-item">
+          <button class="page-link" v-if="!disabledNext" @click="goToLastPage"><i class="bi bi-chevron-double-right"></i></button>
+        </li>
+      </ul>
+    </nav>
+    <button @click="test">asdasd</button>
   </div>
 </template>
 
@@ -69,6 +79,11 @@ const fetchData = async () => {
   data.value = responseData;
   loading.value = false;
 };
+
+
+const test = () => {
+  console.log(data.value)
+}
 
 const prevPage = () => {
   if (page.value > 1) {
@@ -97,7 +112,7 @@ const goToLastPage = () => {
 };
 
 const searchMovies = () => {
-  page.value = 1; // Reset the page to 1 when initiating a new search
+  page.value = 1;
   fetchData();
 };
 
@@ -107,9 +122,7 @@ onMounted(fetchData);
 <style lang="scss">
 
 html, body {
-
 background: #292929;
-
 }
 
 .category {

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "github:fortawesome/vue-fontawesome",
+    "@nuxtjs/google-fonts": "^3.0.1",
     "@vueuse/nuxt": "^10.2.1",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",

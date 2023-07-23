@@ -10,4 +10,6 @@ export type Movie = {
   overview: string;
   poster_path: string;
   vote_average: string | number;
+  vote_count: string | number;
+  backdrop_path: string;
 }

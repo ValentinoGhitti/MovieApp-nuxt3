@@ -1,29 +1,48 @@
 <template>
-  <div class="container">
-    <NuxtLink class="px-4 py-2 border rounded-lg" to="/">Home</NuxtLink>
+    <NuxtLink class="px-4 py-2  " to="/"><i class="bi bi-arrow-return-left"></i></NuxtLink>
 
-    <div id="result">
-      <div class="info">
-        <img :src="imgUrl" class="poster">
-        <div>
-            <h2>{{ data?.title }}</h2>
-            <div class="rating">
-                <img src="../../assets//img/star-icon.svg">
-                <h4>{{ parseInt(data?.vote_average) }}</h4>
+    <div class="movie-card">
+      <div class="container">
+        <a href="#"><img :src="imgUrl" alt="poster" class="cover" /></a>
+        <div class="back-cover" >
+          <div class="details">
+            <div class="title1">{{ data?.title }}<span>{{ data?.runtime }} min</span></div>
+            <div class="title2"> {{ getReleaseYear(data?.release_date) }} </div>
+          </div>
+        </div>
+
+        <div class="about-movie">
+          <div class="colum-one">
+
+            <fieldset class="starRating">
+              <input id="rating1" type="radio" data-length="1" name="rating" value="1">
+              <label for="rating1"></label>
+              <input id="rating2" data-length="2" type="radio" name="rating" value="2" checked>
+              <label for="rating2"></label>
+              <input id="rating3" type="radio" data-length="3" name="rating" value="3">
+              <label for="rating3"></label>
+              <input id="rating4" data-length="4" type="radio" name="rating" value="4">
+              <label for="rating4"></label>
+              <input id="rating5" data-length="5" type="radio" name="rating" value="5">
+              <label for="rating5"></label>
+            </fieldset>
+
+            <span class="likes">{{ parseInt(data?.vote_average) }}</span>
+
+            <div class="colum-catogary" v-for="genre in data?.genres">
+              <span class="tag">{{ genre.name }}</span>
+              <div>
+              </div>
             </div>
-            <div class="details">
-                <span>{{ getReleaseYear(data?.release_date) }}</span>
-                <span>{{ data?.runtime }}min</span>
-            </div>
-            <div class="genre" >
-                <div v-for="genre in data?.genres">{{ genre.name }}</div>
-            </div>
+          </div>
+          <div class="colum-second">
+            <p>{{ data?.overview }}
+            {{ data?.vote_count }}
+            </p>
+          </div>
         </div>
       </div>
-      <h3>Plot:</h3>
-      <p>{{ data?.overview }}</p>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -43,145 +62,294 @@
   
   const { data }  = await useFetch<Movie>(`/api/movies/${movieId.value}`);
 
-  const imgUrl = computed(() => data.value?.poster_path ?
-    `${config.public.imgBaseUrl}/${data.value.poster_path}` :
-    'https://via.placeholder.com/300x500'
+  const imgUrl = computed(() => 
+  data.value?.poster_path 
+    ? `${config.public.imgBaseUrl}/${data.value.poster_path}` 
+    : 'https://via.placeholder.com/300x500'
   );
+
+  const imgBg = computed(() =>
+  data.value?.backdrop_path
+    ? `${config.public.imgBaseUrl}${data.value.backdrop_path}`
+    : 'https://via.placeholder.com/300x500'
+  );
+
 </script>
 
-<style >
+<style lang="scss">
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 body {
-  height: 100vh;
-}
-.container {
-  font-size: 16px;
-  width: 90vw;
-  max-width: 37.5em;
-  padding: 3em 1.8em;
-  background-color: #201f28;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 0.6em;
-  box-shadow: 1.2em 2em 3em rgba(0, 0, 0, 0.2);
+  background: #313131;
 }
 
-.search-container {
-  display: grid;
-  grid-template-columns: 9fr 3fr;
-  gap: 1.2em;
+@media (max-width: 768px) {
+  .container {
+    width: 250px !important;
+    height: 950px !important;
+    overflow: hidden;
+    .about-movie {
+      display: inline-block !important;
+      p {
+        width: 49% !important;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  }
 }
-.search-container input,
-.search-container button {
-  font-size: 0.9em;
-  outline: none;
-  border-radius: 0.3em;
+
+.movie-card {
+  font: 14px/22px "Lato", Arial, sans-serif;
+  color: #A9A8A3;
+  padding: 40px 0;
+  .container {
+    margin: 0 auto;
+    width: 680px;
+    height: 640px;
+    background: #F0F0ED;
+    border-radius: 5px;
+    position: relative;
+    a {
+      img {
+        max-width: 550px;
+        max-height: 250px;
+      }
+    }
+    .back-cover {
+      height: 342px;
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      &:before {
+        content: " ";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url(#{imgBg});
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transform: skewY(-3.2deg);
+        transform-origin: 0 0;
+      }
+    }
+    .cover {
+      position: absolute;
+      top: 160px;
+      left: 40px;
+      z-index: 2;
+      &:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+    }
+    .details {
+      padding: 238px 0 0 268px;
+      .title1 {
+        color: #eee;
+        font-size: 44px;
+        margin-bottom: 16px;
+        position: relative;
+        span {
+          position: absolute;
+          top: 3px;
+          margin-left: 12px;
+          background: #C4AF3D;
+          border-radius: 5px;
+          color: #544C21;
+          font-size: 14px;
+          padding: 0px 4px;
+        }
+      }
+    } 
+    .title2 {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .likes {
+      margin-left: 30px;
+      display: inline-block;
+      padding-bottom: 19px;
+      &:before {
+        content: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/icon_like.png");
+        position: relative;
+        top: 2px;
+        padding-right: 7px;
+      }
+    }
+    .about-movie {
+      display: inline-flex;
+      bottom: 0px;
+      height: 200px;
+      font-size: 16px;
+      line-height: 26px;
+      color: #B1B0AC;
+      .colum-one {
+        padding-left: 50px;
+        padding-top: 90px;
+        width: 220px;
+        float: left;
+        text-align: left;
+        .colum-catogary {
+          text-align: left;
+          margin-left: -20px;
+          span {
+            padding: 1px 8px;
+            font-size: 14px;
+            background: white;
+            border-radius: 10px;
+            margin-left: 2px;
+            &:hover {
+              background: #999;
+              color: white;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .colum-second {
+        padding-left: 38px;
+        padding-top: 21px;
+        margin-left: -39px;
+        width: 480px;
+        float: left;
+        p {
+          width: 76%;
+          a {
+            text-decoration: none;
+            color: #6e6ed8;
+          }
+        }
+      }
+    }
+  }
+} 
+
+fieldset {
+  border-color: #fff;
+  border-style: none;
 }
-.search-container input {
-  background-color: transparent;
-  border: 1px solid #a0a0a0;
-  padding: 0.7em;
-  color: #ffffff;
+
+.starRating {
+  margin-left: -22px;
 }
-.search-container input:focus {
-  border-color: #ffffff;
+
+.starRating > * {
+  float: left;
 }
-.search-container button {
-  background-color: #ffb92a;
-  border: none;
+
+@-webkit-keyframes pulse {
+  50% {
+    color: #5e5e5e;
+    text-shadow: 0 0 15px #777777;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    color: #5e5e5e;
+    text-shadow: 0 0 15px #777777;
+  }
+}
+
+.starRating label {
+  height: 40px;
+  width: 15%;
+  position: relative;
   cursor: pointer;
 }
 
-#result {
-  color: #ffffff;
+.starRatinglabel:nth-of-type(5):after {
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
 }
-.info {
-  position: relative;
-  display: grid;
-  grid-template-columns: 4fr 8fr;
-  align-items: center;
-  margin-top: 1.2em;
+
+.starRating label:nth-of-type(4):after {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
-.poster {
+
+.starRating label:nth-of-type(3):after {
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}
+
+.starRating label:nth-of-type(2):after {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.starRating label:nth-of-type(1):after {
+  -webkit-animation-delay: 0.05s;
+  animation-delay: 0.05s;
+}
+
+.starRating label:after {
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  position: absolute;
+  content: "☆";
+  color: #444;
+  top: 0;
+  left: 0;
   width: 100%;
-}
-h2 {
+  height: 100%;
   text-align: center;
-  font-size: 1.5em;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: 40px;
+  -webkit-animation: 1s pulse ease;
+  animation: 1s pulse ease;
 }
-.rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6em;
-  margin: 0.6em 0 0.9em 0;
+
+.starRating label:hover:after {
+  color: #5e5e5e;
+  text-shadow: 0 0 15px #5e5e5e;
 }
-.rating img {
-  width: 1.2em;
-}
-.rating h4 {
-  display: inline-block;
-  font-size: 1.1em;
-  font-weight: 500;
-}
-.details {
-  display: flex;
-  font-size: 0.95em;
-  gap: 1em;
-  justify-content: center;
-  color: #a0a0a0;
-  margin: 0.6em 0;
-  font-weight: 300;
-}
-.genre {
-  display: flex;
-  justify-content: space-around;
-}
-.genre div {
-  border: 1px solid #a0a0a0;
-  font-size: 0.75em;
-  padding: 0.4em 1.6em;
-  border-radius: 0.4em;
-  font-weight: 300;
-}
-h3 {
-  font-weight: 500;
-  margin-top: 1.2em;
-}
-p {
-  font-size: 0.9em;
-  font-weight: 300;
-  line-height: 1.8em;
-  text-align: justify;
-  color: #a0a0a0;
-}
-.msg {
-  text-align: center;
-}
-@media screen and (max-width: 600px) {
-  .container {
-    font-size: 14px;
-  }
-  .info {
-    grid-template-columns: 1fr;
-  }
-  .poster {
-    margin: auto;
-    width: auto;
-    max-height: 10.8em;
-  }
+
+.starRating input {
+  display: none;
 }
 
 
 
+.starRating input:checked + label:after,
+.starRating input:checked ~ label:after {
+  content: "★";
+  color: #F9BF3B;
+  text-shadow: 0 0 20px #F9BF3B;
+}
+
+.myName{
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  padding: 5px 15px;
+  color: #FFF;
+  font-family: arial;
+  width: 30%;
+}
+.myName a{
+  color: #FFF; 
+  text-decoration: none;
+  font-size: 1.3em;
+  font-weight: normal;
+  float: left;
+  margin-top: 3%;
+  margin-left: 3%;
+}
+.myName a:hover{text-decoration: underline;}
+.myName img{
+  width: 50px; 
+  border-radius: 50%;
+  float: left;
+}
 </style>
