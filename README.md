@@ -1,63 +1,6 @@
-# Nuxt 3 Minimal Starter
+# MovieApp
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+MovieApp es una aplicación web desarrollada en Nuxt 3 y TypeScript que permite a los usuarios buscar películas utilizando la API de Themoviedb. La aplicación proporciona una interfaz sencilla donde los usuarios pueden buscar películas por título y ver detalles como la sinopsis, el año y las calificaciones. Además, la aplicación utiliza el paquete dotenv para gestionar las variables de entorno y proteger la clave de API de Themoviedb. Con esta aplicación, los usuarios pueden explorar y descubrir nuevas películas de manera rápida y eficiente al estilo Letterbox.
 
-## Setup
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
