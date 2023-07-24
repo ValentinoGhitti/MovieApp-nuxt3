@@ -1,49 +1,42 @@
 <template>
-    <NuxtLink class="px-4 py-2  " to="/"><i class="bi bi-arrow-return-left"></i></NuxtLink>
-
-    <div class="movie-card">
-      <div class="container">
-        <a href="#"><img :src="imgUrl" alt="poster" class="cover" /></a>
-        <div class="back-cover" >
-          <div class="details">
-            <div class="title1">{{ data?.title }}<span>{{ data?.runtime }} min</span></div>
-            <div class="title2"> {{ getReleaseYear(data?.release_date) }} </div>
-          </div>
+  <nav class="navbar test navbar-expand-lg navbar-dark p-md-3">
+    <div class="container-fluid">
+      <a class="navbar-brand">MovieApp</a>
+      <div class="d-flex">
+        <NuxtLink class="btn custom-btm" to="/"><i class="bi bi-arrow-return-left"></i></NuxtLink>
+      </div>
+    </div>
+  </nav>
+  <div class="movie-card">
+    <div class="container">
+      <a href="#"><img :src="imgUrl" alt="poster" class="cover" /></a>
+      <div class="back-cover">
+        <div class="back-cover__overlay" :style="{ 'background-image': `url(${imgBg})`, 'background-repeat': 'no-repeat', 'background-size': 'cover' }">
         </div>
 
-        <div class="about-movie">
-          <div class="colum-one">
+        <div class="details">
+          <div class="title1">{{ data?.title }} <span class="fs-5"> ({{ getReleaseYear(data?.release_date) }})</span></div>
+          <div class="title2">{{ data?.runtime }} min</div>
+        </div>
+      </div>
+      <div class="about-movie">
+        <div class="colum-one">
+          <span class="likes">{{ data?.vote_count }}</span><br>
+          <span class="star">{{ parseInt(data?.vote_average) }}</span>
 
-            <fieldset class="starRating">
-              <input id="rating1" type="radio" data-length="1" name="rating" value="1">
-              <label for="rating1"></label>
-              <input id="rating2" data-length="2" type="radio" name="rating" value="2" checked>
-              <label for="rating2"></label>
-              <input id="rating3" type="radio" data-length="3" name="rating" value="3">
-              <label for="rating3"></label>
-              <input id="rating4" data-length="4" type="radio" name="rating" value="4">
-              <label for="rating4"></label>
-              <input id="rating5" data-length="5" type="radio" name="rating" value="5">
-              <label for="rating5"></label>
-            </fieldset>
-
-            <span class="likes">{{ parseInt(data?.vote_average) }}</span>
-
-            <div class="colum-catogary" v-for="genre in data?.genres">
-              <span class="tag">{{ genre.name }}</span>
-              <div>
-              </div>
-            </div>
+          <div class="column-category" v-for="genre in data?.genres">
+            <span class="tag " >{{ genre.name }}</span>
+            <div></div>
           </div>
-          <div class="colum-second">
-            <p>{{ data?.overview }}
-            {{ data?.vote_count }}
-            </p>
-          </div>
+        </div>
+        <div class="colum-second">
+          <p>{{ data?.overview }}</p>
         </div>
       </div>
     </div>
+  </div>
 </template>
+
 
 <script setup lang="ts">
   import { Movie } from 'types/Movie';
@@ -73,7 +66,6 @@
     ? `${config.public.imgBaseUrl}${data.value.backdrop_path}`
     : 'https://via.placeholder.com/300x500'
   );
-
 </script>
 
 <style lang="scss">
@@ -82,7 +74,15 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 body {
-  background: #313131;
+  background: #221f1f;
+}
+
+.back {
+  font-size: 30px;
+}
+
+.back:hover {
+  color: red;
 }
 
 @media (max-width: 768px) {
@@ -108,8 +108,10 @@ body {
   .container {
     margin: 0 auto;
     width: 680px;
+    padding-left: 0;
+    padding-right: 0;
     height: 640px;
-    background: #F0F0ED;
+    background: black;
     border-radius: 5px;
     position: relative;
     a {
@@ -126,20 +128,28 @@ body {
       z-index: 1;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
-      &:before {
-        content: " ";
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: url(#{imgBg});
-        z-index: -1;
-        background-repeat: no-repeat;
-        background-size: cover;
-        transform: skewY(-3.2deg);
-        transform-origin: 0 0;
-      }
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(${imgBg});
+    }
+    .back-cover__overlay {
+      content: " ";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: 100% 100%;
+      transform: skewY(-3.2deg);
+      transform-origin: 0 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+      filter: brightness(0.6);
+  }
+    .back-cover .details {
+      position: relative;
+      z-index: 3;
     }
     .cover {
       position: absolute;
@@ -153,26 +163,19 @@ body {
     }
     .details {
       padding: 238px 0 0 268px;
+      position: relative;
+      
       .title1 {
-        color: #eee;
-        font-size: 44px;
+        font-weight: bolder;
+        font-size: 33px;
         margin-bottom: 16px;
         position: relative;
-        span {
-          position: absolute;
-          top: 3px;
-          margin-left: 12px;
-          background: #C4AF3D;
-          border-radius: 5px;
-          color: #544C21;
-          font-size: 14px;
-          padding: 0px 4px;
-        }
+        color: white;
       }
     } 
     .title2 {
       color: white;
-      font-size: 15px;
+      font-size: 20px;
       font-weight: 600;
       margin-bottom: 15px;
     }
@@ -181,7 +184,18 @@ body {
       display: inline-block;
       padding-bottom: 19px;
       &:before {
-        content: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/icon_like.png");
+        content: url("../../assets/img/hearth.ico");
+        position: relative;
+        top: 2px;
+        padding-right: 7px;
+      }
+    }
+    .star {
+      margin-left: 30px;
+      display: inline-block;
+      padding-bottom: 19px;
+      &:before {
+        content: url("../../assets//img/star-icon.ico");
         position: relative;
         top: 2px;
         padding-right: 7px;
@@ -193,24 +207,23 @@ body {
       height: 200px;
       font-size: 16px;
       line-height: 26px;
-      color: #B1B0AC;
+      color: #fefefe;
       .colum-one {
         padding-left: 50px;
         padding-top: 90px;
         width: 220px;
         float: left;
         text-align: left;
-        .colum-catogary {
-          text-align: left;
-          margin-left: -20px;
+        .column-category {
+          margin-left: 28px;
           span {
             padding: 1px 8px;
             font-size: 14px;
-            background: white;
+            background: #221f1f;
             border-radius: 10px;
             margin-left: 2px;
             &:hover {
-              background: #999;
+              background: red;
               color: white;
               cursor: pointer;
             }
@@ -218,138 +231,16 @@ body {
         }
       }
       .colum-second {
-        padding-left: 38px;
+        padding-left: 68px;
         padding-top: 21px;
         margin-left: -39px;
         width: 480px;
         float: left;
         p {
           width: 76%;
-          a {
-            text-decoration: none;
-            color: #6e6ed8;
-          }
         }
       }
     }
   }
-} 
-
-fieldset {
-  border-color: #fff;
-  border-style: none;
-}
-
-.starRating {
-  margin-left: -22px;
-}
-
-.starRating > * {
-  float: left;
-}
-
-@-webkit-keyframes pulse {
-  50% {
-    color: #5e5e5e;
-    text-shadow: 0 0 15px #777777;
-  }
-}
-
-@keyframes pulse {
-  50% {
-    color: #5e5e5e;
-    text-shadow: 0 0 15px #777777;
-  }
-}
-
-.starRating label {
-  height: 40px;
-  width: 15%;
-  position: relative;
-  cursor: pointer;
-}
-
-.starRatinglabel:nth-of-type(5):after {
-  -webkit-animation-delay: 0.25s;
-  animation-delay: 0.25s;
-}
-
-.starRating label:nth-of-type(4):after {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-
-.starRating label:nth-of-type(3):after {
-  -webkit-animation-delay: 0.15s;
-  animation-delay: 0.15s;
-}
-
-.starRating label:nth-of-type(2):after {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-
-.starRating label:nth-of-type(1):after {
-  -webkit-animation-delay: 0.05s;
-  animation-delay: 0.05s;
-}
-
-.starRating label:after {
-  -webkit-transition: all 0.4s ease-out;
-  transition: all 0.4s ease-out;
-  position: absolute;
-  content: "☆";
-  color: #444;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 40px;
-  -webkit-animation: 1s pulse ease;
-  animation: 1s pulse ease;
-}
-
-.starRating label:hover:after {
-  color: #5e5e5e;
-  text-shadow: 0 0 15px #5e5e5e;
-}
-
-.starRating input {
-  display: none;
-}
-
-
-
-.starRating input:checked + label:after,
-.starRating input:checked ~ label:after {
-  content: "★";
-  color: #F9BF3B;
-  text-shadow: 0 0 20px #F9BF3B;
-}
-
-.myName{
-  position: absolute;
-  top: 1em;
-  left: 1em;
-  padding: 5px 15px;
-  color: #FFF;
-  font-family: arial;
-  width: 30%;
-}
-.myName a{
-  color: #FFF; 
-  text-decoration: none;
-  font-size: 1.3em;
-  font-weight: normal;
-  float: left;
-  margin-top: 3%;
-  margin-left: 3%;
-}
-.myName a:hover{text-decoration: underline;}
-.myName img{
-  width: 50px; 
-  border-radius: 50%;
-  float: left;
 }
 </style>

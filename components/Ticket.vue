@@ -1,19 +1,23 @@
 <template>
-
 <div class="wrapper">
-		<div class="inverted-corner">
-			<div class="content">
-				<a href="https://github.com/ValentinoGhitti" class="github text-dark">/ValentinoGhitti <i class="bi bi-github"></i></a>
-				<div class="title">MOVIE APP</div>
-				<div class="number left">260611</div>
-				<div class="number right">260611</div>
-				<div class="subtitle">Nuxt3 TS</div>
-			</div>
-			<div class="top" />
-			<div class="bottom" />
+	<div class="inverted-corner">
+		<div class="content">
+			<a href="https://github.com/ValentinoGhitti" class="github text-dark">/ValentinoGhitti <i class="bi bi-github"></i></a>
+			<div class="title">{{ searchTerm }}</div>
+			<div class="number left">260611</div>
+			<div class="number right">260611</div>
+			<div class="subtitle">MovieApp: Nuxt3, TS</div>
 		</div>
+		<div class="top" />
+		<div class="bottom" />
+	</div>
 </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps(['searchTerm']);
+
+</script>
 
 <style scoped>
 body {
@@ -36,16 +40,14 @@ body {
 	width: 71%;
 	left: 61px;
 	font-family: 'Spectral', serif; 
-
 }
 
 .title {
 	position: absolute;
-	font-size: 45px;
+	font-size: 30px;
 	top: 43px;
 	font-family: "Hahmlet", serif;
 	text-align: center;
-	left: 70px;
 }
 
 .subtitle {
@@ -60,7 +62,6 @@ body {
 	padding-top: 2px;
 }
 
-/* Numbers */
 .number {
 	position: absolute;
 	text-align: center;
@@ -81,18 +82,16 @@ body {
 	transform: rotate(90deg);
 }
 
-/* Corners */
-
 .inverted-corner {
 	box-sizing: border-box;
 	position: relative;
-	background-color: rgb(205, 34, 35);
+	background-color: red;
 	width: 425px;
 	height: 200px;
 	border: solid 15px;
 	border-left: dotted 3px;
 	border-right: dotted 3px;
-	border-color: #292929;
+	border-color: #221f1f;
 	transform: translateZ(0px);
 }
 
@@ -115,8 +114,8 @@ body {
 	position: absolute;
 	width: 40px;
 	height: 40px;
-	background-color: #292929;
-	border: solid 15px #292929;
+	background-color: #221f1f;
+	border: solid 15px #221f1f;
 	border-radius: 35px;
 }
 

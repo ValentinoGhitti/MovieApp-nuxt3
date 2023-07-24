@@ -20,28 +20,27 @@ const props = defineProps({
 const config = useRuntimeConfig();
 const imgURL = computed(() => props.movie?.poster_path != null ? 
   `${config.public.imgBaseUrl}/${props.movie.poster_path}` :
-  'https://via.placeholder.com/300x380'
+  'https://via.placeholder.com/300x450'
 );
   
 </script>
 
 <style lang="scss">
 .category {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-
 h5 {
-margin-left: 13px;
-margin-top: 3px;
-width: 13em;
-overflow: hidden;
-font-size: .9em;
-letter-spacing: .05em;
-font-family: lato;
-font-weight: 200;
-smoothing: antialiased;
+  margin-left: 13px;
+  margin-top: 3px;
+  width: 13em;
+  overflow: hidden;
+  font-size: .9em;
+  letter-spacing: .05em;
+  font-family: lato;
+  font-weight: 200;
+  smoothing: antialiased;
 }
 
 a {
@@ -50,27 +49,27 @@ a {
 }
 
 .content {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-transition: 300ms all ease-in-out; /*HZ??*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  transition: 300ms all ease-in-out;
 }
 
 
 .movie {
-display: block;
-height: 380px;
-weight: 200px;
-margin-right: 20px;  
-flex-direction: column;
-align-items: center;
+  display: block;
+  height: 380px;
+  weight: 200px;
+  margin-right: 20px;  
+  flex-direction: column;
+  align-items: center;
 
 }
 
 .movie-img { 
-border-radius: 7px;
-filter: contrast(.9) saturate(30%);
-transition: .3s transform cubic-bezier(.16,.88,.3,1.8)
+  border-radius: 7px;
+  filter: contrast(.9) saturate(30%);
+  transition: .3s transform cubic-bezier(.16,.88,.3,1.8);
 }
 
 .movie-img:hover { 
@@ -80,11 +79,8 @@ transition: .3s transform cubic-bezier(.16,.88,.3,1.8)
   cursor: pointer;
 }
 
-
-
 .movie-title {   
-color: #B0BEC5;
-font-family: Raleway;
-
+  color: #B0BEC5;
+  font-family: Raleway;
 }
 </style>

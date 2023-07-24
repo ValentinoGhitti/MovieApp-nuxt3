@@ -1,10 +1,13 @@
 <template>
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org"
-  id="camera-loader"
-  width="85.708488"
-  height="100">
+<div class="d-flex justify-content-center">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org"
+    id="camera-loader"
+    width="85.708488"
+    height="100"
+    fill="#e74c3c"
+  >
   <defs
     id="defs12" />
   <path
@@ -38,7 +41,8 @@
       repeatCount="indefinite" 
     />
   </path>
-</svg>
+  </svg>
+</div>
+<span class="text-white">Loading&hellip;</span>
 
-<span>Loading&hellip;</span>
 </template>
